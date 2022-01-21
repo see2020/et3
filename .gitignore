@@ -2,4 +2,4 @@
 *.log
 /tests
 /writable
-/___DOC
+/___*

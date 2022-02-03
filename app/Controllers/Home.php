@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 
+
+
+use App\Models\DefaultData_model;
+
 class Home extends BaseController
 {
     public function index(){
@@ -9,7 +13,12 @@ class Home extends BaseController
 		print_r($this->request->getGet());
 		echo '<hr>';
 		$this->lnk();
-        return view('welcome_message');
+
+//		$t = new DefaultData_model();
+
+//        return view('welcome_message');
+//        return view('tmp/welcome_message1',['q1'=>'123','q2'=>$t->t()]);
+        return view('tmp/welcome_message1',['q1'=>'123']);
     }
     public function tst(){
 

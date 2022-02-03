@@ -9,6 +9,8 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
+use Config\App;
+
 /**
  * Class BaseController
  *
@@ -48,5 +50,10 @@ class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+
+		// TODO пока определение моих переменных и констант оставим здесь
+		// TODO также где то тут будем читать файл с настройками , если будет нужно
+		$app = new App();
+		defined('ASSETS_PATH') || define('ASSETS_PATH',$app->baseURL.'assets');
     }
 }

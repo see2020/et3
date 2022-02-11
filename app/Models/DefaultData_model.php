@@ -76,13 +76,13 @@ class DefaultData_model extends Model
 				],
 			],
 			'Access' => [
-				'description' => 'Настройки доступа',
+				'description' => 'Доступ',
 				'UsePassword' => [
 					'description'	 => 'Использовать проль для входа',
 					'value'			 => false,
 					'editable'		 => true,
-					'type'			 => 'text',
-					'help'			 => null
+					'type'			 => 'checkbox',
+					'help'			 => 'Должен быть настроен пользователь с правами root'
 				],
 				'DefaultUserGroup' => [
 					'description'	 => 'Группа пользователя по умолчанию',

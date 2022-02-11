@@ -39,7 +39,7 @@
                             aria-describedby="' . $keySetting . 'Help"
                                 name="' . $keySetting . '"
                                 id="' . $keySetting . '"
-                                ' . (($valSetting['editable'])?'':'disabled') . '
+                                ' . ( (!empty($valSetting['editable'])) ? '' : 'disabled' ) . '
                             >
                             ';
 
@@ -52,6 +52,25 @@
                             ';
                             break;
 
+						case 'checkbox':
+//<div class="form-check">
+//<input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
+//<label class="form-check-label" for="flexCheckDisabled">
+//Disabled checkbox
+//</label>
+//</div>
+							echo '
+								
+								  <input class="form-check-input" type="checkbox" 
+								  value="1" 
+								  id="flexCheckDisabled" 
+								  ' . ( (!empty($valSetting['value'])) ? 'checked' : '' ) . '
+								  ' . ( (!empty($valSetting['editable'])) ? '' : 'disabled' ) . '
+								  >
+	
+							';
+							break;
+
                         default:
                             echo '
                                 <input
@@ -61,7 +80,7 @@
                                     id="' . $keySetting . '"
                                     aria-describedby="' . $keySetting . 'Help"
                                     value="' . $valSetting['value'] . '"
-                                    ' . (($valSetting['editable'])?'':'disabled') . '
+                                    ' . ( (!empty($valSetting['editable'])) ? '' : 'disabled' ) . '
                                 >
                             ';
                             break;

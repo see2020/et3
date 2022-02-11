@@ -8,6 +8,7 @@ use CodeIgniter\Model;
 /**
  * Class DefaultData_model
  * @package App\Controllers
+ * все возможные настроки опианы здесь
  * данные по умолчанию для настроек таблиц, полей, пользователей и т.д.
  * возможно надо в модель перенести
  */
@@ -21,11 +22,111 @@ class DefaultData_model extends Model
 	}
 	/*
 	 * Параметры и значения по умолчанию
-	 *
+	 * 'раздел' => [  - раздел настроек
+	 * 		'description' => '', - описание раздела
+	 * 		'группа' => [ - группа настроек в разделе
+	 * 			'description' => '', - описание группы
+	 *  		'настройка' => [ - имя настройки
+	 * 				'description' => '', - описание настройки
+	 * 				'value' => '', - значение настройки
+	 * 				'data' => '', - писок значений для выбора
+	 * 				'editable' => true, - доступно для редактирования
+	 * 				'type' => 'text' - тип поля для редактирвоания text, select, checkbox, ...
+	 * 				'help' => null - текст, ссылка, или файл с дополнительным описанием
+	 * 			],
+	 *		 ],
+	 * ],
 	 */
 	private $defaultConfig = [
+		// основные настройки
+		'MainConfig'	 => [
+			'description' => 'Основные настройки',
+			'Main' => [
+				'description' => 'Общие',
+				'Version' => [
+					'description'	 => 'Версия',
+					'value'			 => '3',
+					'editable'		 => false,
+					'type'			 => 'text',
+					'help'			 => null
+				],
+				'DefaultName' => [ // Instance name
+					'description'	 => 'Название экземпляра',
+					'value'			 => 'ET',
+					'editable'		 => true,
+					'type'			 => 'text',
+					'help'			 => null
+				],
+				'DefaultTable' => [ // если пусто, то список всех таблиц
+					'description'	 => 'Стартовая таблица по умолчанию',
+					'editable'		 => true,
+					'type'			 => 'select',
+					'value'			 => '',
+					'data'			 => [
+						''	 => 'Таблица не задана',
+					],
+					'help'			 => null
+				],
+				'DefaultTheme' => [ // если пусто, то список всех таблиц
+					'description'	 => 'Тема оформления',
+					'value'			 => 'default',
+					'editable'		 => true,
+					'type'			 => 'text',
+					'help'			 => null
+				],
+			],
+			'Access' => [
+				'description' => 'Настройки доступа',
+				'UsePassword' => [
+					'description'	 => 'Использовать проль для входа',
+					'value'			 => false,
+					'editable'		 => true,
+					'type'			 => 'text',
+					'help'			 => null
+				],
+				'DefaultUserGroup' => [
+					'description'	 => 'Группа пользователя по умолчанию',
+					'value'			 => 'root',
+					'editable'		 => true,
+					'type'			 => 'select',
+					'data'			 => [
+						'read'	 => 'Только чтение (read)',
+						'new'	 => 'Создание новых записей (read,new)',
+						'edit'	 => 'Редактирование (read,new,edit)',
+						'delete' => 'Удаление (read,new,edit,delete)',
+						'admin'	 => 'Администратор (read,new,edit,delete,admin)',
+						'root'	 => 'Супер администратор (read,new,edit,delete,admin,root)',
+					],
+					'help'			 => null
+				],
+				'DefaultUserGroupList' => [
+					'description'	 => 'Список групп по умолчанию',
+					'editable'		 => false,
+					'type'			 => 'select',
+					'value'			 => 'read',
+					'data'			 => [
+						'read'	 => 'read',
+						'new'	 => 'read,new',
+						'edit'	 => 'read,new,edit',
+						'delete' => 'read,new,edit,delete',
+						'admin'	 => 'read,new,edit,delete,admin',
+						'root'	 => 'read,new,edit,delete,admin,root',
+					],
+					'help'			 => null
+				],
+				'DefaultUserRight' => [
+					'description'	 => 'Список разрешений по умолчанию',
+					'editable'		 => false,
+					'type'			 => 'select',
+					'value'			 => 'read',
+					'data'			 => ['read','new','edit','delete','admin','root',],
+					'help'			 => null
+				],
+
+			],
+		],
 		// типы полей
-		'TypeField'		 => [
+		'FieldType'	 => [
 			'string'		 => 'string', // текстовая строка (возможноть выбора значения из справочника, если он подключен)
 			'textarea'		 => 'textarea', // поле для ввода текста
 			'selectarea'	 => 'selectarea', // выподающий список
@@ -184,7 +285,8 @@ class DefaultData_model extends Model
 		]
 	];
 
+	public function getMainConfig(){
 
-
-
+		return $this->defaultConfig['MainConfig'];
+	}
 }

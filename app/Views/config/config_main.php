@@ -9,36 +9,51 @@
 <div class="container-lg px-4 py-5" id="icon-grid">
     <h2 class="pb-2 border-bottom"><?php echo $mainconfig['description'] ;?></h2>
 
-    <form>
+    <form action="<?php echo base_url();?>/config/save">
 
         <div class="accordion" id="accordionPanelsStayOpenExample">
 	<?php
 
 	foreach($mainconfig as $keyGroup => $valGroup){ // раздел
 		if($keyGroup != 'description') {
+			$Group = 'MainConfig' . $keyGroup;
 			echo '
             <div class="accordion-item">
-                <h2 class="accordion-header" id="panelsStayOpen-heading' . $keyGroup . '">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse' . $keyGroup . '" aria-expanded="false" aria-controls="panelsStayOpen-collapse' . $keyGroup . '">
-						' . ($valGroup['description']??$keyGroup) . '
+                <h2 class="accordion-header" id="panelsStayOpen-heading' . $Group . '">
+                    <button 
+                    	class="accordion-button collapsed" 
+                    	type="button" 
+                    	data-bs-toggle="collapse" 
+                    	data-bs-target="#panelsStayOpen-collapse' . $Group . '" 
+                    	aria-expanded="false" 
+                    	aria-controls="panelsStayOpen-collapse' . $Group . '">
+						' . ($valGroup['description']??$Group) . '
                     </button>
                 </h2>
-                <div id="panelsStayOpen-collapse' . $keyGroup . '" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading' . $keyGroup . '">
+                <div 
+                	id="panelsStayOpen-collapse' . $Group . '" 
+                	class="accordion-collapse collapse" 
+                	aria-labelledby="panelsStayOpen-heading' . $Group . '">
                     <div class="accordion-body">
             ';
 			foreach ($valGroup as $keySetting => $valSetting){ // настройка
 				if($keySetting != 'description'){
+					$Setting = $Group . $keySetting;
 					echo '
 						<div class="mb-3">
-							<label for="' . $keySetting . '" class="form-label">' . $valSetting['description'] . '</label>
+							<label for="' . $Setting . '" class="form-label">
+							' . $valSetting['description'] . ' 
+							 (' . $Setting . ')
+							
+							</label>
 					';
                     switch ($valSetting['type']){
                         case 'select':
                             echo '
                             <select class="form-select" aria-label="Default select example"
-                            aria-describedby="' . $keySetting . 'Help"
-                                name="' . $keySetting . '"
-                                id="' . $keySetting . '"
+                            aria-describedby="' . $Setting . 'Help"
+                                name="' . $Setting . '"
+                                id="' . $Setting . '"
                                 ' . ( (!empty($valSetting['editable'])) ? '' : 'disabled' ) . '
                             >
                             ';
@@ -63,7 +78,8 @@
 								
 								  <input class="form-check-input" type="checkbox" 
 								  value="1" 
-								  id="flexCheckDisabled" 
+									name="' . $Setting . '"
+									id="' . $Setting . '"
 								  ' . ( (!empty($valSetting['value'])) ? 'checked' : '' ) . '
 								  ' . ( (!empty($valSetting['editable'])) ? '' : 'disabled' ) . '
 								  >
@@ -76,9 +92,9 @@
                                 <input
                                     type="' . $valSetting['type'] . '"
                                     class="form-control"
-                                    name="' . $keySetting . '"
-                                    id="' . $keySetting . '"
-                                    aria-describedby="' . $keySetting . 'Help"
+                                    name="' . $Setting . '"
+                                    id="' . $Setting . '"
+                                    aria-describedby="' . $Setting . 'Help"
                                     value="' . $valSetting['value'] . '"
                                     ' . ( (!empty($valSetting['editable'])) ? '' : 'disabled' ) . '
                                 >
@@ -87,7 +103,7 @@
                     }
 
                     if(!empty($valSetting['help'])){
-                    	echo '<div id="' . $keySetting . 'Help" class="form-text">' . $valSetting['help'] . '</div>';
+                    	echo '<div id="' . $Setting . 'Help" class="form-text">' . $valSetting['help'] . '</div>';
 					}
 
                     echo '</div>';
@@ -108,6 +124,7 @@
 	?>
         </div>
 
+		<button type="submit" class="btn btn-primary" style="margin-top: 15px;">Сохранить</button>
 	</form>
 
 </div>

@@ -19,9 +19,71 @@ class Config extends BaseController
 		$defaultConfig = new DefaultData_model();
 		$mainconfig = $defaultConfig->getMainConfig();
 
+		// переопределить $mainconfig на данные из сохраненных настроек
+
 		$title = $mainconfig['description'];
 		$headmenu = view('navbar/headmenu');
 		$content = view('config/config_main',['mainconfig' => $defaultConfig->getMainConfig()]);
 		return view('layout',['title'=>$title,'content'=>$content,'headmenu'=>$headmenu]);
+	}
+
+	public function save(){
+		echo 'Config::save';
+		echo '<hr>';
+		echo '<pre>';
+		echo '</pre>';
+		$arrReq = $this->request->getGet();
+		echo '<hr>';
+		echo '<pre>';
+		print_r($arrReq);
+		echo '</pre>';
+		if ( isset($arrReq['MainConfigAccessUsePassword']) ){
+			echo 'MainConfigAccessUsePassword = true';
+		}
+		else{
+			echo 'MainConfigAccessUsePassword = false';
+		}
+
+		// это должно быть в модели
+
+		$defaultConfig = new DefaultData_model();
+		$mainconfig = $defaultConfig->getMainConfig();
+
+
+		foreach($mainconfig as $keyGroup => $valGroup){ // раздел
+			if($keyGroup != 'description') {
+				$Group = 'MainConfig' . $keyGroup;
+				foreach ($valGroup as $keySetting => $valSetting){ // настройка
+					if($keySetting != 'description'){
+						$Setting = $Group . $keySetting;
+						switch ($valSetting['type']){
+							case 'checkbox':
+								if ( isset($arrReq[$Setting]) ){
+									echo '<br>' . $Setting . '= true';
+								}
+								else{
+									echo '<br>' . $Setting . '= false';
+								}
+								break;
+
+							case 'select':
+							default:
+								if(empty($arrReq[$Setting])){
+									echo '<br>' . 'не изветсная переменная ' . $Setting;
+								}
+								else{
+									echo '<br>' . $Setting . '=' . $arrReq[$Setting];
+								}
+								break;
+						}
+
+
+					}
+
+
+				}
+			}
+		}
+
 	}
 }

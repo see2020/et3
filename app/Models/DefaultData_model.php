@@ -14,12 +14,6 @@ use CodeIgniter\Model;
  */
 class DefaultData_model extends Model
 {
-	public $tst = [1,5,3,8];
-
-	public function t(){
-
-		return $this->tst;
-	}
 	/*
 	 * Параметры и значения по умолчанию
 	 * 'раздел' => [  - раздел настроек

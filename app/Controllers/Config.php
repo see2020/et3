@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 
+use App\Models\Config_model;
 use App\Models\DefaultData_model;
 
 class Config extends BaseController
@@ -29,6 +30,9 @@ class Config extends BaseController
 
 	public function save(){
 		echo 'Config::save';
+		echo '<hr>';
+		$cs = new Config_model();
+		echo $cs->saveConfig(['qweqwe']);
 		echo '<hr>';
 		echo '<pre>';
 		echo '</pre>';
@@ -58,7 +62,7 @@ class Config extends BaseController
 						$Setting = $Group . $keySetting;
 						switch ($valSetting['type']){
 							case 'checkbox':
-								if ( isset($arrReq[$Setting]) ){
+								if (!empty($arrReq[$Setting])){
 									echo '<br>' . $Setting . '= true';
 								}
 								else{
@@ -68,8 +72,9 @@ class Config extends BaseController
 
 							case 'select':
 							default:
+								//$mainconfig[$keyGroup][$Setting]['editable']
 								if(empty($arrReq[$Setting])){
-									echo '<br>' . 'не изветсная переменная ' . $Setting;
+									echo '<br>' . 'Значение по умолчанию ' . $Setting . '=' . $mainconfig[$keyGroup][$keySetting]['value'];
 								}
 								else{
 									echo '<br>' . $Setting . '=' . $arrReq[$Setting];

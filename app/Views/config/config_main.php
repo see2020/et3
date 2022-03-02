@@ -9,11 +9,12 @@
 <div class="container-lg px-4 py-5" id="icon-grid">
     <h2 class="pb-2 border-bottom"><?php echo $mainconfig['description'] ;?></h2>
 
-    <form action="<?php echo base_url();?>/config/save">
+<!--    <form action="--><?php //echo base_url();?><!--/config/save">-->
+    <form action="javascript:void(0);">
 
         <div class="accordion" id="accordionPanelsStayOpenExample">
 	<?php
-
+	$jq_send_data = [];
 	foreach($mainconfig as $keyGroup => $valGroup){ // раздел
 		if($keyGroup != 'description') {
 			$Group = 'MainConfig' . $keyGroup;
@@ -39,6 +40,7 @@
 			foreach ($valGroup as $keySetting => $valSetting){ // настройка
 				if($keySetting != 'description'){
 					$Setting = $Group . $keySetting;
+					$jq_send_data[] = $Setting . ': \'' . $valSetting['value'] . '\'';
 					echo '
 						<div class="mb-3">
 							<label for="' . $Setting . '" class="form-label">
@@ -124,7 +126,24 @@
 	?>
         </div>
 
-		<button type="submit" class="btn btn-primary" style="margin-top: 15px;">Сохранить</button>
+<!--		<button type="submit" class="btn btn-primary" style="margin-top: 15px;">Сохранить</button>-->
+		<button type="submit" class="btn btn-primary" style="margin-top: 15px;"
+		onclick="
+		console.log('<?php echo base_url();?>/config/save');
+		$.ajax({
+			url: '<?php echo base_url();?>/config/save',
+			data: {
+				<?php
+					echo implode(',', $jq_send_data);
+				?>
+			},
+			success: function( result ) {
+				$( '#res' ).html(result);
+			}
+		});
+"
+		>Сохранить</button>
 	</form>
+	<div id="res"></div>
 
 </div>

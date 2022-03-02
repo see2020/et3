@@ -14,6 +14,8 @@
 	<!--<link rel="stylesheet" type="text/css" href="<?php echo ASSETS_PATH?>/bootstrap-5.1.3/css/bootstrap.min.css" >-->
 	<link href="<?php echo ASSETS_PATH?>/bootstrap-5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+	<script src="<?php echo ASSETS_PATH?>//jquery/jquery-3.6.0.min.js"></script>
+
 <!--    <link rel="stylesheet" type="text/css" href="--><?php //echo ASSETS_PATH?><!--/css/bs.css" />-->
 
 	<title><?php echo $title; ?></title>

@@ -23,15 +23,20 @@ class Config_model extends Model
 	{
 //		$sql = "INSERT INTO et3_first (txt) VALUES (".$this->db->escape($title).", ".$this->db->escape($name).")";
 		$db = \Config\Database::connect();
-		$sql = "INSERT INTO et3_first (txt) VALUES ('тестовая запись')";
-		$db->query($sql);
+		$sql = "INSERT INTO et3_first (txt,yyyy) VALUES ('тестовая запись " . date('Y-m-d H:i:s') . "')";
+		if (!$db->query($sql)) {
+			$error = $db->error();
+			$error['query'] = $sql;
+			return json_encode($error);
+		}
 
-		$query   = $db->query('SELECT txt FROM et3_first');
+
+		$query   = $db->query('SELECT id, txt FROM et3_first');
 		$results = $query->getResultArray();
 
 		$r = print_r($data,true) . '<br>';
 		foreach ($results as $row) {
-			$r .= $row['txt'] . '<br>';
+			$r .= $row['id'] . ' - ' . $row['txt'] . '<br>';
 		}
 
 //		echo $db->affectedRows();

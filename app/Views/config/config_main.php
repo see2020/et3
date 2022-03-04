@@ -40,7 +40,7 @@
 			foreach ($valGroup as $keySetting => $valSetting){ // настройка
 				if($keySetting != 'description'){
 					$Setting = $Group . $keySetting;
-					$jq_send_data[] = $Setting . ': \'' . $valSetting['value'] . '\'';
+					$jq_send_data[$Setting] = $Setting . ': \'' . $valSetting['value'] . '\'';
 					echo '
 						<div class="mb-3">
 							<label for="' . $Setting . '" class="form-label">
@@ -52,7 +52,7 @@
                     switch ($valSetting['type']){
                         case 'select':
                             echo '
-                            <select class="form-select" aria-label="Default select example"
+                            <select class="form-select' . $Setting . '" aria-label="Default select example"
                             aria-describedby="' . $Setting . 'Help"
                                 name="' . $Setting . '"
                                 id="' . $Setting . '"
@@ -76,9 +76,10 @@
 //Disabled checkbox
 //</label>
 //</div>
+							$jq_send_data[$Setting] = "{$Setting}: ($('#{$Setting}').is(':checked')) ? true : null";
 							echo '
 								
-								  <input class="form-check-input" type="checkbox" 
+								  <input class="form-check-input' . $Setting . '" type="checkbox" 
 								  value="1" 
 									name="' . $Setting . '"
 									id="' . $Setting . '"
@@ -93,7 +94,7 @@
                             echo '
                                 <input
                                     type="' . $valSetting['type'] . '"
-                                    class="form-control"
+                                    class="form-control' . $Setting . '"
                                     name="' . $Setting . '"
                                     id="' . $Setting . '"
                                     aria-describedby="' . $Setting . 'Help"

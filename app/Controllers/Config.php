@@ -31,22 +31,23 @@ class Config extends BaseController
 	public function save(){
 		echo 'Config::save';
 		echo '<hr>';
-		$cs = new Config_model();
-		echo $cs->saveConfig(['qweqwe']);
-		echo '<hr>';
-		echo '<pre>';
-		echo '</pre>';
+//		$cs = new Config_model();
+//		echo $cs->saveConfig(['qweqwe']);
+//		echo '<hr>';
+//		echo '<pre>';
+//		echo '</pre>';
 		$arrReq = $this->request->getGet();
-		echo '<hr>';
+//		echo '<hr>';
 		echo '<pre>';
 		print_r($arrReq);
 		echo '</pre>';
-		if ( isset($arrReq['MainConfigAccessUsePassword']) ){
-			echo 'MainConfigAccessUsePassword = true';
-		}
-		else{
-			echo 'MainConfigAccessUsePassword = false';
-		}
+		echo '<hr>';
+//		if ( isset($arrReq['MainConfigAccessUsePassword']) ){
+//			echo 'isset MainConfigAccessUsePassword = true';
+//		}
+//		else{
+//			echo '!isset MainConfigAccessUsePassword = false';
+//		}
 
 		// это должно быть в модели
 

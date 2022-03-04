@@ -37,6 +37,7 @@
 					<ul class="dropdown-menu" aria-labelledby="dev_link">
 						<li><a class="dropdown-item" href="<?php echo base_url();?>/home/tst">http://et/et3/home/tst</a></li>
 						<li><a class="dropdown-item" href="https://codeigniter.com/user_guide/models/model.html">https://codeigniter.com/user_guide/models/model.html</a></li>
+						<li><a class="dropdown-item" href="https://api.jquery.com/">https://api.jquery.com/</a></li>
 						<li><a class="dropdown-item" href="https://bootstrap5.ru/docs/getting-started/introduction">https://bootstrap5.ru/docs/getting-started/introduction</a></li>
 						<li><a class="dropdown-item" href="https://bootstrap-4.ru/docs/5.1/customize/components/">https://bootstrap-4.ru/docs/5.1/customize/components/</a></li>
 						<li><a class="dropdown-item disabled" href="#">Another action</a></li>
